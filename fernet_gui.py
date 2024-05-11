@@ -17,7 +17,7 @@ class FernetGUI:
         # ROOT WIDGET
         self.root = ttk.Frame(self.tk)
         self.root.rowconfigure((0), weight=1)
-        self.root.columnconfigure((0), weight=1)
+        self.root.columnconfigure((0, 2), weight=1)
         self.root.grid(row=0, column=0, padx=3, pady=3, sticky="nsew")
 
         # DECRYPTED CONTENT
@@ -41,6 +41,33 @@ class FernetGUI:
         self.dec_file_path.grid(row=0, column=3, sticky="ew")
         # Input / display for text
         self.dec_text = tk.Text(self.dec)
+        self.dec_text.grid(row=1, column=0, padx=3, pady=3, sticky="nsew")
+
+        # VERTICAL CONTENT SPACER
+        self.spacer_vertical = ttk.Frame(self.root)
+        self.spacer_vertical.grid(row=0, column=1, padx=3)
+
+        # ENCRYPTED CONTENT
+        # Wrapper frame
+        self.enc = ttk.Labelframe(self.root, text="Encrypted Content")
+        self.enc.rowconfigure((1), weight=1)
+        self.enc.columnconfigure((0), weight=1)
+        self.enc.grid(row=0, column=2, sticky="nsew")
+        # Wrapper for buttons
+        self.enc_file = ttk.Frame(self.enc)
+        self.enc_file.columnconfigure((3), weight=1)
+        self.enc_file.grid(row=0, column=0, padx=3, sticky="ew")
+        # Buttons and entry for path
+        self.enc_file_copy = ttk.Button(self.enc_file, text="Copy text")
+        self.enc_file_copy.grid(row=0, column=0)
+        self.enc_file_select = ttk.Button(self.enc_file, text="Select File")
+        self.enc_file_select.grid(row=0, column=1)
+        self.enc_file_load = ttk.Button(self.enc_file, text="Load File")
+        self.enc_file_load.grid(row=0, column=2)
+        self.enc_file_path = ttk.Entry(self.enc_file)
+        self.enc_file_path.grid(row=0, column=3, sticky="ew")
+        # Input / display for text
+        self.dec_text = tk.Text(self.enc)
         self.dec_text.grid(row=1, column=0, padx=3, pady=3, sticky="nsew")
 
     def mainloop(self, n: int = 0) -> None:
