@@ -13,6 +13,8 @@ class FernetGUI:
             self.tk.title("FernetGUI")
             self.tk.rowconfigure((0), weight=1)
             self.tk.columnconfigure((0), weight=1)
+            self.tk.geometry("600x300")
+            self.tk.minsize(600, 300)
 
         # ROOT WIDGET
         self.root = ttk.Frame(self.tk)
@@ -69,6 +71,38 @@ class FernetGUI:
         # Input / display for text
         self.dec_text = tk.Text(self.enc)
         self.dec_text.grid(row=1, column=0, padx=3, pady=3, sticky="nsew")
+
+        # HORIZONTAL CONTENT SPACER
+        self.spacer_horizontal = ttk.Frame(self.root)
+        self.spacer_horizontal.grid(row=1, column=0, columnspan=3, pady=3)
+
+        # PASSWORD SETTINGS
+        # Wrapper frame
+        self.set = ttk.Labelframe(self.root, text="Password Settings")
+        self.set.columnconfigure((0), weight=1)
+        self.set.grid(row=2, column=0, columnspan=3, sticky="ew")
+        # Password and encrypt / decrypt
+        self.set_passwd = ttk.Frame(self.set)
+        self.set_passwd.columnconfigure((2), weight=1)
+        self.set_passwd.grid(row=0, column=0, padx=3, sticky="ew")
+        self.set_passwd_enc = ttk.Button(self.set_passwd, text="Encrypt")
+        self.set_passwd_enc.grid(row=0, column=0)
+        self.set_passwd_dec = ttk.Button(self.set_passwd, text="Decrypt")
+        self.set_passwd_dec.grid(row=0, column=1)
+        self.set_passwd_entry = ttk.Entry(self.set_passwd)
+        self.set_passwd_entry.grid(row=0, column=2, sticky="ew")
+        # Salt and pepper
+        self.set_sec = ttk.Frame(self.set)
+        self.set_sec.columnconfigure((3), weight=1)
+        self.set_sec.grid(row=1, column=0, padx=3, pady=3, sticky="ew")
+        self.set_sec_pepper = ttk.Button(self.set_sec, text="Pepper: Off")
+        self.set_sec_pepper.grid(row=1, column=0)
+        self.set_sec_select_salt = ttk.Button(self.set_sec, text="Select Salt")
+        self.set_sec_select_salt.grid(row=1, column=1)
+        self.set_sec_load_salt = ttk.Button(self.set_sec, text="Load Salt")
+        self.set_sec_load_salt.grid(row=1, column=2)
+        self.set_sec_path_salt = ttk.Entry(self.set_sec)
+        self.set_sec_path_salt.grid(row=1, column=3, sticky="ew")
 
     def mainloop(self, n: int = 0) -> None:
         """
