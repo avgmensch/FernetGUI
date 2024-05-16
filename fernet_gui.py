@@ -2,6 +2,18 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 
+def copy_text_to_clipboard(root: tk.Tk, message: str) -> None:
+    """Copy a text `message` to the clipboard of the Tkinter window."""
+    root.clipboard_clear()
+    root.clipboard_append(message)
+
+
+def copy_text_widget_to_clipboard(root: tk.Tk, text: tk.Text) -> None:
+    """Copy the content of a `Text` widget to clipboard of the the Tkinter
+    window."""
+    copy_text_to_clipboard(root, text.get("1.0", tk.END))
+
+
 class FernetGUI:
     def __init__(self, window: tk.Tk | None = None) -> None:
         """Create a new FernetGUI-window."""
@@ -33,7 +45,8 @@ class FernetGUI:
         self.dec_file.columnconfigure((3), weight=1)
         self.dec_file.grid(row=0, column=0, padx=3, sticky="ew")
         # Buttons and entry for path
-        self.dec_file_copy = ttk.Button(self.dec_file, text="Copy Text")
+        self.dec_file_copy = ttk.Button(
+            self.dec_file, text="Copy Text", command=self.dec_file_copy_click)
         self.dec_file_copy.grid(row=0, column=0)
         self.dec_file_select = ttk.Button(self.dec_file, text="Select File")
         self.dec_file_select.grid(row=0, column=1)
@@ -60,7 +73,8 @@ class FernetGUI:
         self.enc_file.columnconfigure((3), weight=1)
         self.enc_file.grid(row=0, column=0, padx=3, sticky="ew")
         # Buttons and entry for path
-        self.enc_file_copy = ttk.Button(self.enc_file, text="Copy text")
+        self.enc_file_copy = ttk.Button(
+            self.enc_file, text="Copy text", command=self.enc_file_copy_click)
         self.enc_file_copy.grid(row=0, column=0)
         self.enc_file_select = ttk.Button(self.enc_file, text="Select File")
         self.enc_file_select.grid(row=0, column=1)
@@ -69,8 +83,8 @@ class FernetGUI:
         self.enc_file_path = ttk.Entry(self.enc_file)
         self.enc_file_path.grid(row=0, column=3, sticky="ew")
         # Input / display for text
-        self.dec_text = tk.Text(self.enc)
-        self.dec_text.grid(row=1, column=0, padx=3, pady=3, sticky="nsew")
+        self.enc_text = tk.Text(self.enc)
+        self.enc_text.grid(row=1, column=0, padx=3, pady=3, sticky="nsew")
 
         # HORIZONTAL CONTENT SPACER
         self.spacer_horizontal = ttk.Frame(self.root)
@@ -104,11 +118,17 @@ class FernetGUI:
         self.set_sec_path_salt = ttk.Entry(self.set_sec)
         self.set_sec_path_salt.grid(row=1, column=3, sticky="ew")
 
+    def dec_file_copy_click(self) -> None:
+        """Copy the content of `self.dec_text` to the clipboard."""
+        copy_text_widget_to_clipboard(self.tk, self.dec_text)
+
+    def enc_file_copy_click(self) -> None:
+        """Copy the content of `self.enc_text` to the clipboard."""
+        copy_text_widget_to_clipboard(self.tk, self.enc_text)
+
     def mainloop(self, n: int = 0) -> None:
-        """
-        Run the FernetGUI-application. Don't touch `n` if you aren't exactly
-        sure on what you are doing.
-        """
+        """Run the FernetGUI-application. Don't touch `n` if you aren't exactly
+        sure on what you are doing."""
         self.tk.mainloop(n)
 
 

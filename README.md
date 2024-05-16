@@ -6,7 +6,7 @@ GUI for encrypting and decrypting text using [Fernet](https://cryptography.io/en
 
 # Todo
 
-- [ ] On click event for copy buttons.
+- [X] On click event for copy buttons.
 - [ ] Load files from the disk.
     - [ ] Load file by path.
     - [ ] Create file open dialog.
