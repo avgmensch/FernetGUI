@@ -1,6 +1,6 @@
 # Fernet GUI
 
-![Image of the FernetGUI window under Windows 11](docs\demo_image.png)
+![Image of the FernetGUI window under Windows 11](./docs/demo_image.png)
 
 GUI for encrypting and decrypting text using [Fernet](https://cryptography.io/en/42.0.7/fernet/).
 
